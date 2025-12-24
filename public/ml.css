@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Malayalam:wght@300;400;600;700&display=swap');
+
+body.ml {
+    font-family: 'Noto Sans Malayalam', sans-serif !important;
+    letter-spacing: 0.4px;
+    line-height: 1.85;
+}
+
+/* Also support the old class if used */
+.ml-font {
+    font-family: 'Noto Sans Malayalam', sans-serif !important;
+    letter-spacing: 0.4px;
+    line-height: 1.85;
+}
+
+/* Fade animation */
+.fade-out {
+    opacity: 0;
+    transition: opacity 0.6s ease;
+}
+
+.fade-in {
+    opacity: 1;
+    transition: opacity 0.6s ease;
+}
