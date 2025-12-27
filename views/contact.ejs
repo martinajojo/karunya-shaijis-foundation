@@ -1,0 +1,122 @@
+<!-- Contact page rebuilt with Warm Hope Palette -->
+<a class="skip-link" href="#contact-main">Skip to content</a>
+
+<main id="contact-main" class="contact-page">
+  <header class="page-header">
+    <div class="container page-header-inner">
+      <p class="eyebrow">Reach Out</p>
+      <h1 data-key="contact_title">Tell Us How We Can Help</h1>
+      <p class="page-lead" data-key="contact_sub">Share your needs and preferred way to connect. We’ll respond with care
+        and urgency.</p>
+    </div>
+  </header>
+
+  <div class="contact-container">
+    <% if (status) { %>
+      <section class="thank-you">
+        <h2>Thank You for Reaching Out!</h2>
+        <p>Your message has been received. Our team will review your inquiry and contact you within 2-3 business days.
+          We're committed to responding with care and urgency.</p>
+        <a class="btn btn-primary" href="/">Back to Home</a>
+      </section>
+      <% } else { %>
+        <section class="help-forms-section">
+          <div class="help-forms-grid">
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfDq_sR38SpqY2jzrPq5fhPogx6TEalJCeV3TrqIOfN_r28HA/viewform?usp=preview" class="help-form-box" target="_blank" rel="noopener noreferrer">
+              <div class="help-form-content">
+                <h3 data-key="housing_title">Housing Assistance</h3>
+                <p data-key="housing_desc">Apply for housing support and assistance programs to help secure stable housing for you and your family.</p>
+                <span class="form-link-indicator" data-key="fill_form">Fill Out Form →</span>
+              </div>
+            </a>
+
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSegey744ooBW8f9DOUz2tiSHvjhIcfLc9-dlDRt-BlNU4q5Rg/viewform?usp=header" class="help-form-box" target="_blank" rel="noopener noreferrer">
+              <div class="help-form-content">
+                <h3 data-key="education_title">Educational Support</h3>
+                <p data-key="education_desc">Provide quality educational opportunities and support for your child's learning and development.</p>
+                <span class="form-link-indicator" data-key="fill_form">Fill Out Form →</span>
+              </div>
+            </a>
+
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfd1KYko2dpRBEoEwCizotCh13KuRi20xN4kN5VyriGlmB60A/viewform?usp=publish-editor" class="help-form-box" target="_blank" rel="noopener noreferrer">
+              <div class="help-form-content">
+                <h3 data-key="cancer_title">Cancer Treatment Support</h3>
+                <p data-key="cancer_desc">Access financial and medical support assistance for cancer treatment and related medical care.</p>
+                <span class="form-link-indicator" data-key="fill_form">Fill Out Form →</span>
+              </div>
+            </a>
+          </div>
+        </section>
+
+        <section class="reach-out-section">
+          <div class="container reach-out-inner">
+            <h2 data-key="reach_out_title">Reach Out to Us?</h2>
+            <p class="reach-out-intro" data-key="reach_out_intro">For those who prefer to reach out to us directly, you can contact our team using the details below.</p>
+            
+            <div class="contact-details">
+              <div class="contact-item">
+                <span class="contact-label" data-key="email_label">Email:</span>
+                <a href="mailto:karunyashaijisfoundation@gmail.com" class="contact-link">karunyashaijisfoundation@gmail.com</a>
+              </div>
+              <div class="contact-item">
+                <span class="contact-label" data-key="uk_helpline_label">UK Helpline:</span>
+                <a href="tel:+447721541385" class="contact-link">+44 7721 541385</a>
+              </div>
+              <div class="contact-item">
+                <span class="contact-label" data-key="whatsapp_label">WhatsApp Helpline:</span>
+                <a href="https://wa.me/447538581617" class="contact-link" target="_blank" rel="noopener noreferrer">+44 7538581617</a>
+              </div>
+            </div>
+
+            <div class="registration-details">
+              <h3>Registered Office & Details</h3>
+              <p>Kunnappillil House, Pannoor Post,<br>Thodupuzha, Idukki (Dt), Kerala, India – PIN 685581.</p>
+              <p>Registered as a public charitable trust in 2025 (Reg. No. 178/4/2025).</p>
+            </div>
+          </div>
+        </section>
+        <% } %>
+  </div>
+</main>
+
+<script>
+  (function () {
+    const form = document.getElementById('contact-form');
+    if (!form) return;
+    const fields = ['name', 'email', 'helpType', 'message', 'contactPreference', 'consent'];
+    const errors = {};
+    fields.forEach(f => { errors[f] = document.querySelector('[data-error-for=\"' + f + '\"]'); });
+
+    const setError = (field, msg) => {
+      if (errors[field]) errors[field].textContent = msg || '';
+      const el = form.elements[field] || document.getElementById(field);
+      if (el) el.setAttribute('aria-invalid', msg ? 'true' : 'false');
+    };
+
+    form.addEventListener('submit', (e) => {
+      let valid = true;
+      setError('name'); setError('email'); setError('helpType'); setError('message'); setError('contactPreference'); setError('consent');
+
+      const name = form.elements['name'];
+      const email = form.elements['email'];
+      const helpType = form.elements['helpType'];
+      const message = form.elements['message'];
+      const consent = form.elements['consent'];
+      const contactPreference = form.querySelector('input[name=\"contactPreference\"]:checked');
+
+      if (!name.value.trim()) { setError('name', 'Please enter your name.'); valid = false; }
+
+      if (!email.validity.valid) { setError('email', 'Please enter a valid email.'); valid = false; }
+
+      if (!helpType.value) { setError('helpType', 'Please select how we can help.'); valid = false; }
+
+      if (!message.value || message.value.trim().length < 60) { setError('message', 'Please provide at least 60 characters.'); valid = false; }
+
+      if (!contactPreference) { setError('contactPreference', 'Please choose a contact preference.'); valid = false; }
+
+      if (!consent.checked) { setError('consent', 'Consent is required.'); valid = false; }
+
+      if (!valid) e.preventDefault();
+    });
+  })();
+</script>

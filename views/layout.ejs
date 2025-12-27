@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Karunya Shaiji's Foundation</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/ml.css">
+  <script src="/lang.js"></script>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="navbar-container">
+      <!-- Brand Name -->
+      <div class="navbar-brand">Karunya Shaiji's Foundation</div>
+
+      <!-- Navbar Controls (Translate + Hamburger) -->
+      <div class="navbar-controls">
+        <!-- Translate Button -->
+        <button id="langToggle" class="translate-btn" aria-label="Toggle language translation">
+          മലയാളത്തിൽ വായിക്കുക
+        </button>
+
+        <!-- Hamburger Button -->
+        <button id="hamburgerBtn" class="hamburger-btn" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navMenu">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Navigation Menu (Hidden by default) -->
+    <nav class="navbar-menu" id="navMenu" aria-hidden="true">
+      <ul class="nav-list">
+        <li><a href="/" class="nav-link<%= currentPath === '/' ? ' active' : '' %>" data-key="nav_home">Home</a></li>
+        <li><a href="/about" class="nav-link<%= currentPath === '/about' ? ' active' : '' %>" data-key="nav_about">About</a></li>
+        <li><a href="/projects" class="nav-link<%= currentPath === '/projects' ? ' active' : '' %>" data-key="nav_projects">Projects</a></li>
+        <li><a href="/contact" class="nav-link<%= currentPath === '/contact' ? ' active' : '' %>" data-key="nav_contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <%- body %>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <%= new Date().getFullYear() %> Karunya Shaiji's Foundation. <span data-key="footer_rights">All rights
+          reserved.</span></p>
+  </footer>
+
+  <script src="/lang.js"></script>
+  <script>
+    initLang();
+
+    // Navigation Menu Toggle
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const navMenu = document.getElementById('navMenu');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const translateBtn = document.getElementById('langToggle');
+
+    // Toggle menu when hamburger is clicked
+    hamburgerBtn.addEventListener('click', () => {
+      const isExpanded = hamburgerBtn.getAttribute('aria-expanded') === 'true';
+      hamburgerBtn.setAttribute('aria-expanded', !isExpanded);
+      navMenu.setAttribute('aria-hidden', isExpanded);
+      navMenu.classList.toggle('open');
+      hamburgerBtn.classList.toggle('active');
+    });
+
+    // Close menu when a nav link is clicked
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        hamburgerBtn.setAttribute('aria-expanded', 'false');
+        navMenu.setAttribute('aria-hidden', 'true');
+        navMenu.classList.remove('open');
+        hamburgerBtn.classList.remove('active');
+      });
+    });
+
+    // Close menu when clicking outside (optional but good UX)
+    document.addEventListener('click', (e) => {
+      if (!navMenu.contains(e.target) && !hamburgerBtn.contains(e.target)) {
+        hamburgerBtn.setAttribute('aria-expanded', 'false');
+        navMenu.setAttribute('aria-hidden', 'true');
+        navMenu.classList.remove('open');
+        hamburgerBtn.classList.remove('active');
+      }
+    });
+
+    // Translate button handler
+    translateBtn.addEventListener('click', () => {
+      toggleLanguage();
+    });
+  </script>
+</body>
+
+</html>
